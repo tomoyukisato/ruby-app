@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row my-4">
+        <div class="col-lg-6">
+            <h2 class="mb-3">
+                <%= @product.name %><%= @product.id %></h2>
+            <span class="badge badge-primary"><%= @product.category.name %></span>
+            <p><%= @product.description %></p>
+        </div>
+        <div class="col-lg-6">
+            <div class="mb-3 d-flex flex-row-reverse">
+                <%= link_to "削除", product_path(@product.id), class: 'btn btn-danger', method: :delete　%>
+                <%= link_to "編集", edit_product_path(@product.id), class: 'btn btn-primary mr-2 ', method: :get %>
+            </div>
+
+            <img class="img-fluid rounded" src="/<%= @product.pic %>" alt="">
+        </div>
+    </div>
+    <div class="row my-4">
+        <h2>コメント一覧</h2>
+        <table class="table">
+            <% @comments.each do |c|  %>
+            <tr>
+                <td>
+                    <a href="/users/<%= c.user_id %>"><%= c.user.email %></a>
+                </td>
+                <td>
+                    <%= c.content %>
+                </td>
+            </tr>
+            <% end  %>
+        </table>
+        <div class="col-lg-6">
+            <%= form_for( [@product,@comment], class: "col-sm-12 ") do |f| %>
+            <div class="form-group">
+                <label class="my-2">コメント:</label>
+                <%= f.text_area :content, class: "form-control", rows: 5 %>
+            </div>
+            <%= f.submit "コメントする",class: "btn btn-primary" %>
+            <% end %>
+        </div>
+    </div>
+</div>

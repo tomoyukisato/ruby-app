@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Myapp</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'styles' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="site-header__top">
+      <div class="wrapper site-header__wrapper top">
+        <nav class="nav">
+          <button class="nav__toggle" aria-expanded="false" type="button">
+            menu
+          </button>
+          <ul class="nav__wrapper">
+            <li class="nav__item"><a href="/products/">プロダクト</a></li>
+
+          </ul>
+        </nav>
+        <a href="#"></a>
+        <% if user_signed_in? %>
+        <%= link_to 'LOGOUT', destroy_user_session_path, method: :delete %>
+        <% else %>
+        <%= link_to "SIGN IN", new_user_session_path, class: 'post' %>
+        <% end %>
+      </div>
+    </div>
+    <% if user_signed_in? %>
+    <div class="site-header__bottom">
+      <div class="wrapper site-header__wrapper bottom">
+        <a href="#" class="brand">プロダクト</a>
+        <%= link_to '新規投稿', new_product_path, class: 'button' , method: :get %>
+      </div>
+    </div>
+    <% end %>
+    <% if controller.controller_name == "products" && controller.action_name == "index" %>
+    <div id="carouselExampleIndicators" class="previews">
+
+      <div class="slider" role="listbox">
+        <div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>First Slide</h3>
+            <p>This is a description for the first slide.</p>
+          </div>
+        </div>
+        <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Second Slide</h3>
+            <p>This is a description for the second slide.</p>
+          </div>
+        </div>
+        <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Third Slide</h3>
+            <p>This is a description for the third slide.</p>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+
+
+    </div>
+    <% end %>
+
+  </header>
+
+  <%= yield %>
+
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+</body>
+
+</html>
