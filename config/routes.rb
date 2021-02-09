@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  namespace :api do
+    get 'categories/show'
+  end
+  namespace :api do
+    get 'genres/show'
+  end
   get 'categories/index'
   get 'categories/edit'
   # devise_for :users
@@ -6,7 +12,12 @@ Rails.application.routes.draw do
     :registrations => 'users/registrations',
     :sessions => 'users/sessions'   
   } 
-  
+  namespace :api do 
+    resources :categories, only: %i(show)
+  end
+  namespace :api do 
+    resources :products, only: [:show]
+  end
   devise_scope :user do
     get "user/:id", :to => "users/registrations#detail"
     get "signup", :to => "users/registrations#new"
